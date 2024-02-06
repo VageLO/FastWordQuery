@@ -8,7 +8,7 @@ from ..base import *
 
 wordhunt_url_base = u'https://wooordhunt.ru/word/'
 
-
+@register([u'WordHunt', u'WordHunt'])
 class Wordhunt(WebService):
 
     def __init__(self):
@@ -21,8 +21,8 @@ class Wordhunt(WebService):
         data = self.get_response(u'{0}{1}'.format(self._get_url(), self.quote_word))
         soup = parse_html(data)
         result = {
-            'example': '',
-            'word_form': '',
+            'example': 'test1',
+            'word_form': 'test1',
         }
        
         element = soup.find('div', class_='')
