@@ -36,7 +36,6 @@ class Wordhunt(WebService):
         
         for image in array:
             resolution = list(image["images"].keys())[0]
-            print(f'<img src="{image["images"][resolution]["url"]}"/>')
             result['image'] += f'<img src="{image["images"][resolution]["url"]}"/>'
             
         meaning = soup.find('div', class_='t_inline_en')
