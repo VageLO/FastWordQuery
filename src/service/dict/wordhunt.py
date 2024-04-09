@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 import os
 import re
+import requests
 
 from bs4 import Tag
 
@@ -24,8 +25,19 @@ class Wordhunt(WebService):
             'meaning': '',
             'example': '',
             'word_form': '',
+            'image': '',
         }
-       
+
+        url = f'https://dictionary.skyeng.ru/api/v2/search-word-exact?images=1980x1080&word={self.quote_word}'
+        web = requests.get(url)
+        if web.status_code == 200:
+        	res = web.json()
+        array = res["meanings"]
+        
+        for image in array:
+            resolution = list(image["images"].keys())[0]
+            print(f'<img src="{image["images"][resolution]["url"]}"/>')
+            
         meaning = soup.find('div', class_='t_inline_en')
         result['meaning'] = meaning
 
@@ -63,6 +75,13 @@ class Wordhunt(WebService):
     @export('WORDFORM')
     def fld_wordform(self):
         val = self._get_field('word_form')
+        if val == None or val == '':
+            return ''
+        return self._css(val)
+        
+    @export('IMAGE')
+    def fld_image(self):
+        val = self._get_field('image')
         if val == None or val == '':
             return ''
         return self._css(val)
