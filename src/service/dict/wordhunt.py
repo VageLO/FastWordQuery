@@ -26,6 +26,7 @@ class Wordhunt(WebService):
             'example': '',
             'word_form': '',
             'image': '',
+            'transcription': '',
         }
 
         url = f'https://dictionary.skyeng.ru/api/v2/search-word-exact?images=1980x1080&word={self.quote_word}'
@@ -36,6 +37,7 @@ class Wordhunt(WebService):
         
         for image in array:
             resolution = list(image["images"].keys())[0]
+            result['transcription'] = image["transcription"]
             result['image'] += f'<img src="{image["images"][resolution]["url"]}"/>'
             
         meaning = soup.find('div', class_='t_inline_en')
