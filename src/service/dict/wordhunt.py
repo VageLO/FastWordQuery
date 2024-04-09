@@ -29,7 +29,7 @@ class Wordhunt(WebService):
             'transcription': '',
         }
 
-        url = f'https://dictionary.skyeng.ru/api/v2/search-word-exact?images=1980x1080&word={self.quote_word}'
+        url = f'https://dictionary.skyeng.ru/api/v2/search-word-exact?images=400x300&word={self.quote_word}'
         web = requests.get(url)
         if web.status_code == 200:
         	res = web.json()
@@ -38,7 +38,7 @@ class Wordhunt(WebService):
         for image in array:
             resolution = list(image["images"].keys())[0]
             result['transcription'] = image["transcription"]
-            result['image'] += f'<img src="{image["images"][resolution]["url"]}"/>'
+            result['image'] += f'<img width="{400} height="{300} src="{image["images"][resolution]["url"]}"/>'
             
         meaning = soup.find('div', class_='t_inline_en')
         result['meaning'] = meaning
