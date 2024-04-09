@@ -87,3 +87,10 @@ class Wordhunt(WebService):
         if val == None or val == '':
             return ''
         return self._css(val)
+    
+    @export('TRANSCRIPTION')
+    def fld_transcription(self):
+        val = self._get_field('transcription')
+        if val == None or val == '':
+            return ''
+        return self._css(val)
